@@ -19,13 +19,24 @@ use PHPUnit\Framework\TestCase;
  */
 class TPhpMailerTest extends TestCase
 {
-    public function testSmtpServer()
-    {
-        mail('testing@test.com','Test message','Hello');
-        $this->assertTrue(true,'Need to run a dummy smtp server for these tests. If not online and exception is thrown.');
+    private $enabled;
+
+    private function checkTestsDisabled() {
+        if (!isset($this->enabled)) {
+            $this->enabled = @mail('test@foo.com', 'Testing server availability', 'Ok');
+            if (!$this->enabled) {
+                print 'Warning: Test mail server is not running. Tests disabled. Need to run a dummy smtp server (such as smtp4dev) for these tests. ' . "\n";
+                $this->assertTrue(true);
+            }
+        }
+        return (!$this->enabled);
     }
 
+
     public function testPhpMailerIsMail() {
+        if ($this->checkTestsDisabled()) {
+            return;
+        }
         $mail = new PHPMailer;
         $mail->setFrom('from@example.com', 'First Last');
         $mail->addReplyTo('replyto@example.com', 'First Last');
@@ -40,6 +51,10 @@ class TPhpMailerTest extends TestCase
         $this->assertTrue($actual,$mail->ErrorInfo);
     }
     public function testPhpMailer() {
+        if ($this->checkTestsDisabled()) {
+            return;
+        }
+
         //Create a new PHPMailer instance
         $mail = new PHPMailer;
         // $mail->isSMTP();
@@ -83,6 +98,22 @@ class TPhpMailerTest extends TestCase
 //send the message, check for errors
         $actual = $mail->send();
         $this->assertTrue($actual,$mail->ErrorInfo);
+    }
+    public function testTPhpMailer() {
+        if ($this->checkTestsDisabled()) {
+            return;
+        }
+
+        $msg = new \Tops\mail\TEMailMessage();
+        $msg->addRecipient('tls@2quakers.net','Terry SoRelle');
+        $msg->setSubject('Test message');
+        $msg->setMessageBody('Hello world');
+        $msg->setFromAddress('admin@foo.com','Administrator');
+
+        $mailer = new TPhpMailer();
+        $result = $mailer->send($msg);
+        $this->assertTrue($result);
+
     }
 
     /*
