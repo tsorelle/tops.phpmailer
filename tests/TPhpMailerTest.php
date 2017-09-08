@@ -109,6 +109,7 @@ class TPhpMailerTest extends TestCase
         $msg->setSubject('Test message');
         $msg->setMessageBody('Hello world');
         $msg->setFromAddress('admin@foo.com','Administrator');
+        $msg->setReturnAddress('bounces@me.com');
 
         $mailer = new TPhpMailer();
         $result = $mailer->send($msg);
