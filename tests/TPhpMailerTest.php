@@ -7,7 +7,7 @@
  */
 
 use PHPMailer\PHPMailer\PHPMailer;
-use Tops\mail\TPhpMailer;
+use Tops\extensions\phpmail\TPhpMailer;
 use PHPUnit\Framework\TestCase;
 
 /**

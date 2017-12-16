@@ -6,9 +6,13 @@
  * Time: 9:57 AM
  */
 
-namespace Tops\mail;
+namespace Tops\extensions\phpmail;
 
-use PHPMailer\PHPMailer\PHPMailer;
+use Tops\mail\IMailer;
+use Tops\mail\TContentType;
+use Tops\mail\TEMailMessage;
+use Tops\mail\TMailConfiguration;
+use Tops\mail\TMailSettings;
 use Tops\sys\TConfiguration;
 use Tops\sys\TPath;
 use Tops\sys\TWebSite;
@@ -38,7 +42,7 @@ class TPhpMailer implements IMailer
             $this->baseDir = TWebSite::ExpandUrl($baseDir);
         }
 
-        $this->mailer = new PHPMailer();
+        $this->mailer = new \Tops\extensions\phpmail\PHPMailer();
         if (empty($settings->sendmail)) {
             $this->enabled = false;
         }
