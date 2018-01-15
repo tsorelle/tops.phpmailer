@@ -22,7 +22,6 @@
   ],
   "require": {
     "phpunit/phpunit": "5.7.26",
-    "twoquakers/tops" : "dev-master",
-    "phpmailer/phpmailer": "6.0.x-dev"
+    "twoquakers/tops" : "dev-master"
   }
 }
