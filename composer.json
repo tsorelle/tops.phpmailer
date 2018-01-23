@@ -21,7 +21,7 @@
     }
   ],
   "require": {
-    "phpunit/phpunit": "5.7.26",
+    "phpunit/phpunit": "6.5.0",
     "twoquakers/tops" : "dev-master"
   }
 }
